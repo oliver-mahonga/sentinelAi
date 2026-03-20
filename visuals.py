@@ -17,7 +17,6 @@ def create_layout():
     return layout
 
 def get_matrix_line(width):
-    # Generates a string of random "hacker" characters
     chars = "0123456789ABCDEFHIJKLMNOPQRSTUVWXYZ$#@%&*"
     return "".join(random.choice(chars) if random.random() > 0.1 else " " for _ in range(width))
 
@@ -40,8 +39,6 @@ def generate_stability_bar(level, work_time):
     width = int(level / 2.5)
     bar = "█" * width + "░" * (40 - width)
     color = "green" if level < 30 else "yellow" if level < 70 else "red"
-    
-    # Timer display
     mins, secs = divmod(int(work_time), 60)
     timer = f"{mins:02d}:{secs:02d}"
     
