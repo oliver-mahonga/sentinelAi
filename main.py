@@ -22,20 +22,17 @@ try:
         while True:
             cpu, mem, distracted, mood = get_system_status()
             work_duration = time.time() - start_time
-            
-            # Handle Stability Logic
+     
             if distracted:
                 stability_level = min(100, stability_level + 3)
             else:
                 stability_level = max(0, stability_level - 1)
 
-            # 1. Update Header (The Matrix Rain Effect)
             header_content = get_matrix_line(console.width - 4)
             if stability_level > 50 or cpu > 70:
                 header_content = f"[bold green]{header_content}[/bold green]"
             layout["header"].update(Panel(header_content, style="green on black"))
             
-            # 2. Update Brain
             current_face = get_ascii_face(mood if stability_level < 95 else "dead")
             brain_display = f"\n{current_face}\n\n[bold yellow]NEURAL STATE: {mood.upper()}[/bold yellow]\n"
             if stability_level > 60:
@@ -43,13 +40,11 @@ try:
             
             layout["brain"].update(Panel(brain_display, title="Core Consciousness"))
             
-            # 3. Update Roast Stream
             if random.random() < 0.04:
                 roasts.append(f"[bold red]>[/bold red] {generate_insult(cpu, distracted)}")
             
             layout["roast_log"].update(Panel(generate_roast_table(roasts), title="Judgment Log"))
             
-            # 4. Update Footer (Stability + Timer)
             layout["footer"].update(Panel(generate_stability_bar(stability_level, work_duration)))
             
             time.sleep(0.1)
